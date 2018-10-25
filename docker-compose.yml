@@ -1,0 +1,24 @@
+version: "3"
+services:
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    networks:
+     - gateway-network
+    # environment:
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    ports:
+     - "8080:8080"
+     - "9876:9876"
+    command: nodemon server.js
+
+  redis:
+    image: "redis:alpine"
+    networks:
+     - gateway-network
+
+networks:
+  gateway-network:
+
